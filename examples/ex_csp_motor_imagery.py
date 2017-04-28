@@ -50,10 +50,9 @@ class CSP(base.BaseEstimator, base.TransformerMixin):
         self.W = eegtools.spatfilt.csp(class_covs[0], class_covs[1], 6)
         return self
 
-
-  def transform(self, X):
-    # Note that the projection on the spatial filter expects zero-mean data.
-    return np.asarray([np.dot(self.W, trial) for trial in X])
+    def transform(self, X):
+        # Note that the projection on the spatial filter expects zero-mean data.
+        return np.asarray([np.dot(self.W, trial) for trial in X])
 
 
 class ChanVar(base.BaseEstimator, base.TransformerMixin):
