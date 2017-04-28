@@ -56,9 +56,10 @@ class CSP(base.BaseEstimator, base.TransformerMixin):
 
 
 class ChanVar(base.BaseEstimator, base.TransformerMixin):
-  def fit(self, X, y): return self
-  def transform(self, X):
-    return np.var(X, axis=2)  # X.shape = (trials, channels, time)
+    def fit(self, X, y): return self
+
+    def transform(self, X):
+        return np.var(X, axis=2)  # X.shape = (trials, channels, time)
 
 
 pipe = pipeline.Pipeline(
