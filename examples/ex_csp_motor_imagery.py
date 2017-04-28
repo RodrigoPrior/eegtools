@@ -37,17 +37,18 @@ y, folds = d.events[0], d.folds
 
 # Create sklearn-compatible feature extraction and classification pipeline:
 class CSP(base.BaseEstimator, base.TransformerMixin):
-  def fit(self, X, y):
-    class_covs = []
+    """Common Spatial Pattern."""
+    def fit(self, X, y):
+        class_covs = []
 
-    # calculate per-class covariance
-    for ci in np.unique(y):
-      class_covs.append(np.cov(np.hstack(X[y==ci])))
-    assert len(class_covs) == 2
+        # calculate per-class covariance
+        for ci in np.unique(y):
+            class_covs.append(np.cov(np.hstack(X[y == ci])))
+        assert len(class_covs) == 2
 
-    # calculate CSP spatial filters
-    self.W = eegtools.spatfilt.csp(class_covs[0], class_covs[1], 6)
-    return self
+        # calculate CSP spatial filters
+        self.W = eegtools.spatfilt.csp(class_covs[0], class_covs[1], 6)
+        return self
 
 
   def transform(self, X):
